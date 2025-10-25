@@ -1,0 +1,69 @@
+###
+# CampusSafe API - Example Requests
+#
+# NOTE: You will need to replace <your-project-id> with your actual Firebase project ID.
+# You will also need to obtain a valid Bearer token from the Firebase Auth emulator.
+###
+
+@api_url = http://localhost:5001/<your-project-id>/us-central1/api
+@auth_token = Bearer <your-auth-token>
+
+###
+# Incidents
+###
+
+# Create a new incident
+POST {{api_url}}/incidents
+Content-Type: application/json
+Authorization: {{auth_token}}
+
+{
+  "type": "suspicious",
+  "text": "Someone is looking into cars in the parking lot.",
+  "location": { "lat": 37.422, "lng": -122.084 },
+  "severity": 3
+}
+
+###
+
+# Get all incidents
+GET {{api_url}}/incidents
+Authorization: {{auth_token}}
+
+###
+# Buddy System
+###
+
+# Create a new buddy session
+POST {{api_url}}/buddy/sessions
+Content-Type: application/json
+Authorization: {{auth_token}}
+
+{
+  "participants": ["user-uid-1", "user-uid-2"],
+  "checkInIntervalSec": 600
+}
+
+###
+
+# Check in to a buddy session
+POST {{api_url}}/buddy/some-session-id/checkin
+Content-Type: application/json
+Authorization: {{auth_token}}
+
+{
+  "status": "ok"
+}
+
+###
+# SOS Alerts
+###
+
+# Trigger an SOS alert
+POST {{api_url}}/alerts/sos
+Content-Type: application/json
+Authorization: {{auth_token}}
+
+{
+  "message": "I need help immediately!"
+}
